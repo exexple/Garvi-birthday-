@@ -1,168 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday My Love 💗🎀</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      font-family: "Poppins", sans-serif;
-      color: #fff;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Surprise</title>
+<style>
+:root{
+  --baby-pink:#ffe6f2;
+  --soft-pink:#ffd6e8;
+  --pink:#ff80bf;
+  --white:#ffffff;
+}
+body {
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(180deg,var(--baby-pink),var(--white));
+  overflow-x:hidden;
+  transition:background 0.5s;
+}
+body.dark { background:#111; }
 
-    h1 {
-      text-align: center;
-      font-size: 3rem;
-      margin-top: 30px;
-      color: #fff;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-      animation: pulse 2s infinite;
-    }
+.banner {
+  width:100%;
+  max-width:980px;
+  margin:20px auto;
+  background:var(--soft-pink);
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+  font-size:clamp(16px,2.5vw,24px);
+  transition:opacity .6s, transform .6s;
+}
+.hidden { opacity:0; transform:translateY(-20px); pointer-events:none;}
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
+.controls { display:flex; gap:12px; justify-content:center; margin:12px;}
+.btn {
+  padding:12px 20px;
+  border:none;
+  border-radius:12px;
+  background:var(--pink);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .message {
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 20px;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      backdrop-filter: blur(5px);
-      position: relative;
-    }
+.stage { position:relative; margin:20px auto; display:flex; justify-content:center; align-items:center; flex-direction:column;}
+.cake-wrap { position:relative; width:220px; height:140px; opacity:0; transition:0.5s;}
+.cake {
+  width:220px; height:140px; background:linear-gradient(180deg,#fff0f6,#ffdfe9);
+  border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:10px;
+}
+.candles { display:flex; gap:12px; margin-bottom:6px; }
+.candle { width:8px; height:28px; background:#fff1f6; border-radius:4px; position:relative; }
+.flame { position:absolute; top:-12px; left:50%; transform:translateX(-50%); width:8px; height:12px; border-radius:50%; background:radial-gradient(circle at 40% 30%,#ffd46a,#ff7a15); transition:0.45s; }
+.flame.blown { opacity:0; transform:translateY(-8px) scale(.7);}
+.slice { position:absolute; top:26px; left:50%; transform:translateX(-50%) rotate(0deg); width:0; height:0; border-style:solid; border-width:60px 48px 20px 0; border-color:transparent #fff #fff transparent; opacity:0; transition:all .6s;}
+.slice.show { opacity:1; transform:translateX(18px) rotate(-6deg);}
 
-    .photo {
-      display: block;
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin: 25px auto;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      animation: floatPhoto 5s ease-in-out infinite;
-    }
+.message { max-width:720px; margin:20px auto; background:rgba(255,255,255,0.95); padding:16px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.05); display:none; line-height:1.5;}
+.final { display:none; flex-direction:column; align-items:center; gap:12px; margin-top:20px;}
 
-    @keyframes floatPhoto {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
+.float-layer { position:fixed; inset:0; pointer-events:none; z-index:60;}
+.float-item { position:absolute; font-size:20px; animation:drift 6s linear infinite; }
+@keyframes drift { 0%{transform:translateY(100vh);}100%{transform:translateY(-10vh);} }
 
-    /* Floating hearts and texts */
-    .floating {
-      position: fixed;
-      bottom: -50px;
-      font-size: 1.5rem;
-      color: #fff;
-      opacity: 0.7;
-      animation: floatUp 10s linear infinite;
-      z-index: 999;
-      pointer-events: none;
-    }
+.ribbon { position:fixed; z-index:70; padding:6px 12px; border-radius:12px; background:linear-gradient(90deg,#fff0f6,#fff); border:1px solid rgba(255,160,190,0.12); font-weight:bold; pointer-events:none; animation:ribbonSwing 3.8s ease-in-out infinite;}
+@keyframes ribbonSwing { 0%{transform:rotate(-6deg);}50%{transform:rotate(6deg);}100%{transform:rotate(-6deg);} }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
-    }
-
-    /* Music button */
-    #music-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 18px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 2px solid white;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      display: none;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-
-    #music-btn:hover {
-      background: rgba(255, 255, 255, 0.4);
-      transform: scale(1.05);
-    }
-  </style>
+video { width:100vw; height:100vh; object-fit:cover; }
+</style>
 </head>
 <body>
 
-  <h1>🎉 Happy Birthday My Love 💗🎀 🎉</h1>
+<div class="float-layer" id="floatLayer"></div>
 
-  <!-- Background Music -->
-  <audio id="bg-music" loop>
-    <source src="song.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+<div id="b1" class="banner">so it's your special day eh, I'm so so so happy yayayayayayyyyyyy</div>
+<div id="b2" class="banner hidden">i made something for you, wanna see?
+  <div class="controls"><button id="yes1" class="btn">Yes</button></div>
+</div>
 
-  <button id="music-btn">🎶 Play Music</button>
-
-  <div class="message">
-    <p>Hey you 💗🎀.... How are you? So, it's your birthday eh. Happy Birthday my lady, i hope this birthday brings you a lot of joy and happiness, i hope you enjoy and smile a lot on this birthday, i hope everyone treats you well on your special day.</p>
-    
-    <img src="photo1.jpg" alt="Photo 1" class="photo">
-
-    <p>I..... I've been waiting for this day for a long time to wish you a happy birthday for the first time and give you something special as a gift tho I can't do much but i can surely wish you properly right? I just hope that you smile a lot and please never let that beautiful smile fade away cause you look way better when you're smiling.</p>
-    
-    <img src="photo2.jpg" alt="Photo 2" class="photo">
-
-    <p>It still feels like yesterday, i didn't even realise a year passed. I had a lot of plans to celebrate your birthday but ig I'm not lucky enough so yeah gotta do what i can. Thank you for everything that you ever did for me, you made my life a lot better like millions of times better than what it used to be, i started smiling more i started being happy i felt recognised and uk what no one ever treated me like you did, I'm so happy and i feel like I'm the luckiest person to have you in my life.</p>
-    
-    <img src="photo3.jpg" alt="Photo 3" class="photo">
-
-    <p>Now I won't make this way too long so yeah... Once again, happy birthday love. I love you and i always will <3💗🎀</p>
-    
-    <img src="photo4.jpg" alt="Photo 4" class="photo">
+<div class="stage" id="stage">
+  <div class="cake-wrap" id="cakeWrap">
+    <div class="cake" id="cake">
+      <div class="candles" id="candles">
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+        <div class="candle"><div class="flame"></div></div>
+      </div>
+    </div>
+    <div class="slice" id="slice"></div>
   </div>
+</div>
 
-  <script>
-    const messages = ["💗", "🎀", "❤️", "Happy Birthday 🎉", "I Love You 💕", "💓", "💞"];
-    
-    function createFloating() {
-      const el = document.createElement("div");
-      el.className = "floating";
-      el.innerText = messages[Math.floor(Math.random() * messages.length)];
-      el.style.left = Math.random() * window.innerWidth + "px";
-      el.style.fontSize = (Math.random() * 20 + 20) + "px";
-      el.style.animationDuration = (Math.random() * 5 + 5) + "s";
-      document.body.appendChild(el);
+<div class="controls" id="controls"></div>
+<div class="message" id="messageArea"></div>
+<div class="final" id="finalSection"></div>
 
-      setTimeout(() => { el.remove(); }, 10000);
-    }
+<audio id="bgMusic" loop><source src="YOUR_SONG.mp3" type="audio/mpeg"></audio>
+<video id="giftVideo" preload="metadata" style="display:none;"><source src="YOUR_VIDEO.mp4" type="video/mp4"></video>
 
-    setInterval(createFloating, 800);
+<script>
+const floatLayer=document.getElementById('floatLayer');
+const floatEmojis=['🎀','💗','🫶🏼','✨','🐭','🐥'];
 
-    // Music autoplay + fallback button
-    const music = document.getElementById("bg-music");
-    const btn = document.getElementById("music-btn");
+function spawnFloat(){
+  const el=document.createElement('div');
+  el.className='float-item';
+  el.textContent=floatEmojis[Math.floor(Math.random()*floatEmojis.length)];
+  el.style.left=Math.random()*90+'vw';
+  el.style.fontSize=(14+Math.random()*24)+'px';
+  floatLayer.appendChild(el);
+  setTimeout(()=>{el.remove();},6000);
+}
+setInterval(spawnFloat,900);
 
-    // Try autoplay
-    window.addEventListener("load", async () => {
-      try {
-        await music.play();
-      } catch (e) {
-        // Autoplay blocked, show button
-        btn.style.display = "block";
-      }
+const b1=document.getElementById('b1');
+const b2=document.getElementById('b2');
+const yes1=document.getElementById('yes1');
+const controls=document.getElementById('controls');
+const cakeWrap=document.getElementById('cakeWrap');
+const sliceEl=document.getElementById('slice');
+const messageArea=document.getElementById('messageArea');
+const bgMusic=document.getElementById('bgMusic');
+const giftVideo=document.getElementById('giftVideo');
+
+setTimeout(()=>{b1.classList.add('hidden'); b2.classList.remove('hidden');},3400);
+
+yes1.onclick=()=>{
+  b2.classList.add('hidden');
+  document.body.classList.add('dark');
+  addBtn('lightsOn','Lights On',()=>{
+    document.body.classList.remove('dark');
+    addBtn('musicOn','Music On',()=>{
+      bgMusic.play().catch(()=>{});
+      addBtn('decorate','Decorate',startDecorate);
     });
+  });
+};
 
-    // Button play
-    btn.addEventListener("click", () => {
-      music.play();
-      btn.style.display = "none";
-    });
-  </script>
+function addBtn(id,label,fn){
+  if(document.getElementById(id)) return;
+  const btn=document.createElement('button');
+  btn.id=id; btn.className='btn'; btn.textContent=label; btn.onclick=fn;
+  controls.appendChild(btn);
+}
+
+let ribbons=[];
+function startDecorate(){
+  cakeWrap.style.opacity=1;
+  for(let i=0;i<6;i++){
+    const r=document.createElement('div');
+    r.className='ribbon';
+    r.textContent='Happy Birthday Garviii!! 🎀💗';
+    r.style.top=(5+i*12)+'vh';
+    r.style.left=(5+i*12)+'vw';
+    document.body.appendChild(r);
+    ribbons.push(r);
+  }
+  addBtn('blowCut','Blow candles & cut cake',handleCakeCut);
+}
+
+function handleCakeCut(){
+  document.querySelectorAll('.flame').forEach(f=>f.classList.add('blown'));
+  sliceEl.classList.add('show');
+  ribbons.forEach(r=>r.remove());
+  setTimeout(showMessage,800);
+}
+
+function showMessage(){
+  messageArea.style.display='block';
+  messageArea.innerHTML=`hello madam aka miss har baat pe mujhe daantne wali, happy birthday. you can't even imagine how long I've waited for this day. this is a special day for me cause it's your birthday yayyyyy. happy birthday happy birthday happy birthday happy birthday happyyyyyyy birthdayyyyyyyyyy. you are the best and the most beautiful part of my life you are the one who stayed through thick and thin. you can't even imagine how my life changed since you came and how much you've helped me to deal with everything, how much you've helped me to go through stuff. the ammount of care and love I've got from you is immeasurable and ohh your gifts, every single one of those gifrs mean so much to me. you know i still have every single gift you've given to me and i will cherish them for rhe rest of my life. thank you for everything. I'm glad i met you, I'm glad you came to my life, I'm glad you're here with me so thanks a lot. at last all i wanna say is thank you and happyyyyyyyy birthdayyyyyyy 🎀💗. always keep on smiling and please never lose that smile of yours. i just hope that smile stays like rha forever.`;
+  setTimeout(showFinalBtn,500);
+}
+
+function showFinalBtn(){
+  addBtn('lastGift','I have one last gift for you! Wanna see?',()=>{
+    // Hide everything else
+    document.querySelectorAll('body > *:not(video)').forEach(el => el.style.display='none');
+    // Show video fullscreen
+    giftVideo.style.display='block';
+    if(giftVideo.requestFullscreen) giftVideo.requestFullscreen();
+    giftVideo.play();
+  });
+}
+</script>
 </body>
 </html>
